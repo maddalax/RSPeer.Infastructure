@@ -1,0 +1,77 @@
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+using MediatR;
+using RSPeer.Application.Features.Scripts.Queries.GetScript;
+using RSPeer.Application.Features.Store.Purchase.Models;
+using RSPeer.Application.Features.UserManagement.Users.Commands;
+using RSPeer.Common.Enums;
+using RSPeer.Domain.Entities;
+using RSPeer.Persistence;
+
+namespace RSPeer.Application.Features.Store.Process.Commands.Children
+{
+	public class ProcessScriptPurchaseCommandHandler : IRequestHandler<ProcessScriptPurchaseCommand, PurchaseItemResult>
+	{
+		private readonly RsPeerContext _db;
+		private readonly IMediator _mediator;
+
+		public ProcessScriptPurchaseCommandHandler(IMediator mediator, RsPeerContext db)
+		{
+			_mediator = mediator;
+			_db = db;
+		}
+
+		public async Task<PurchaseItemResult> Handle(ProcessScriptPurchaseCommand request,
+			CancellationToken cancellationToken)
+		{
+			var scriptId = int.Parse(request.Item.Sku.Replace("premium-script-", ""));
+			var script = await _mediator.Send(new GetScriptByIdQuery { ScriptId = scriptId }, cancellationToken);
+			var isBuyingOwnScript = request.Order.UserId == script.AuthorId;
+
+			if (!request.Item.FeesPercent.HasValue)
+			{
+				throw new Exception("Item does not have a fees percent but requires fees.");
+			}
+
+			if (script.Disabled)
+			{
+				throw new Exception("This script is disabled and may not be purchased.");
+			}
+
+			if (!isBuyingOwnScript)
+			{
+				var taken = request.Order.Total * request.Item.FeesPercent.Value;
+				var payout = request.Order.Total - taken;
+				await _mediator.Send(new UserUpdateBalanceCommand
+						{ UserId = script.AuthorId, Amount = (int) payout, Type = AddRemove.Add, OrderId = request.Order.Id },
+					cancellationToken);
+			}
+
+			await _db.ScriptAccess.AddAsync(new ScriptAccess
+			{
+				Expiration = DateTimeOffset.UtcNow.AddDays(30),
+				Instances = script.Instances * request.Order.Quantity,
+				OrderId = request.Order.Id,
+				UserId = request.Order.UserId,
+				Timestamp = DateTimeOffset.UtcNow,
+				ScriptId = script.Id,
+				Recurring = request.Order.Recurring
+			}, cancellationToken);
+
+			request.Order.Status = OrderStatus.Completed;
+			_db.Orders.Update(request.Order);
+
+			await _db.SaveChangesAsync(cancellationToken);
+
+			return new PurchaseItemResult
+			{
+				Status = OrderStatus.Completed,
+				PaymentMethod = PaymentMethod.Tokens,
+				Sku = request.Item.Sku,
+				Total = request.Order.Total,
+				IsCreator = isBuyingOwnScript
+			};
+		}
+	}
+}

@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="9.0.0" />
+      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+      <PackageReference Include="Dapper" Version="2.0.4" />
+      <PackageReference Include="Discord.Net" Version="2.1.1" />
+      <PackageReference Include="jose-jwt" Version="2.4.0" />
+      <PackageReference Include="MediatR" Version="7.0.0" />
+      <PackageReference Include="Microsoft.ApplicationInsights" Version="2.11.0" />
+      <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.8.0" />
+      <PackageReference Include="Microsoft.Extensions.Logging" Version="3.0.0" />
+      <PackageReference Include="Polly" Version="7.1.1" />
+      <PackageReference Include="RedLock.net" Version="2.2.0" />
+      <PackageReference Include="Sendgrid" Version="9.12.0" />
+      <PackageReference Include="StackExchange.Redis" Version="2.0.601" />
+      <PackageReference Include="TinyMapper" Version="3.0.2-beta" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\RSPeer.Common\RSPeer.Common.csproj" />
+      <ProjectReference Include="..\RSPeer.Infrastructure\RSPeer.Infrastructure.csproj" />
+      <ProjectReference Include="..\RSPeer.Persistence\RSPeer.Persistence.csproj" />
+    </ItemGroup>
+
+</Project>

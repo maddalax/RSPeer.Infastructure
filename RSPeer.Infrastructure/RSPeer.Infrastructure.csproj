@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\RSPeer.Domain\RSPeer.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AWSSDK.CognitoIdentityProvider" Version="3.3.102.64" />
+      <PackageReference Include="AWSSDK.S3" Version="3.3.104.31" />
+      <PackageReference Include="Hangfire" Version="1.7.6" />
+      <PackageReference Include="MediatR" Version="7.0.0" />
+      <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="3.0.0" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Http" Version="3.0.0" />
+      <PackageReference Include="NsqSharp" Version="0.5.4" />
+      <PackageReference Include="System.Runtime.Caching" Version="4.6.0" />
+    </ItemGroup>
+
+</Project>

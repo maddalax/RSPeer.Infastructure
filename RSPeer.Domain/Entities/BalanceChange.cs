@@ -1,0 +1,18 @@
+using System;
+
+namespace RSPeer.Domain.Entities
+{
+	public class BalanceChange
+	{
+		public int Id { get; set; }
+		public string LegacyId { get; set; }
+		public int UserId { get; set; }
+		public DateTimeOffset Timestamp { get; set; }
+		public int OldBalance { get; set; }
+		public int NewBalance { get; set; }
+		public User AdminUser { get; set; }
+		public int? AdminUserId { get; set; }
+		public int OrderId { get; set; }
+		public string Reason { get; set; }
+	}
+}

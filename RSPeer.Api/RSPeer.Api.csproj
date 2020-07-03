@@ -1,0 +1,72 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.0</TargetFramework>
+        <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+        <ApplicationInsightsResourceId>/subscriptions/80ea4560-a44f-454c-aea2-2d9250a6d5a1/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/RSPeer.Api</ApplicationInsightsResourceId>
+        <ApplicationInsightsAnnotationResourceId>/subscriptions/80ea4560-a44f-454c-aea2-2d9250a6d5a1/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/RSPeer.Api</ApplicationInsightsAnnotationResourceId>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Hangfire" Version="1.7.6" />
+        <PackageReference Include="Hangfire.AspNetCore" Version="1.7.6" />
+        <PackageReference Include="Hangfire.Dashboard.Authorization" Version="2.1.0" />
+        <PackageReference Include="Hangfire.Mongo" Version="0.6.3" />
+        <PackageReference Include="Hangfire.PostgreSql" Version="1.6.3" />
+        <PackageReference Include="MediatR" Version="7.0.0" />
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+        <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.8.0" />
+        <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.4" />
+        <PackageReference Include="Microsoft.AspNetCore.AzureAppServices.HostingStartup" Version="3.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.AzureAppServicesIntegration" Version="3.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
+        <PackageReference Include="Microsoft.Azure.AppService.ApiApps.Service" Version="0.9.64" />
+        <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="3.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.ApplicationInsights" Version="2.11.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.AzureAppServices" Version="3.0.0" />
+        <PackageReference Include="Sendgrid" Version="9.12.0" />
+        <PackageReference Include="Sentry" Version="2.0.0-beta4" />
+        <PackageReference Include="Sentry.AspNetCore" Version="2.0.0-beta4" />
+        <PackageReference Include="Sentry.Extensions.Logging" Version="2.0.0-beta4" />
+        <PackageReference Include="System.Runtime.Caching" Version="4.6.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\RSPeer.Application\RSPeer.Application.csproj" />
+      <ProjectReference Include="..\RSPeer.ForumsMigration\RSPeer.ForumsMigration.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="publish\web.config" />
+      <_ContentIncludedByDefault Remove="publish\appsettings.Development.json" />
+      <_ContentIncludedByDefault Remove="publish\appsettings.json" />
+      <_ContentIncludedByDefault Remove="publish\appsettings.Production.json" />
+      <_ContentIncludedByDefault Remove="publish\RSPeer.Api.deps.json" />
+      <_ContentIncludedByDefault Remove="publish\RSPeer.Api.runtimeconfig.json" />
+      <_ContentIncludedByDefault Remove="publish\Connected Services\Application Insights\ConnectedService.json" />
+      <_ContentIncludedByDefault Remove="publish\mono_crash.0.0.json" />
+      <_ContentIncludedByDefault Remove="publish\mono_crash.0.1.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="Assets\**">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <WCFMetadata Include="Connected Services" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Update="appsettings.Production.json">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
+    </ItemGroup>
+    
+</Project>

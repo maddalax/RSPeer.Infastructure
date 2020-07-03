@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\RSPeer.Application\RSPeer.Application.csproj" />
+      <ProjectReference Include="..\RSPeer.Common\RSPeer.Common.csproj" />
+      <ProjectReference Include="..\RSPeer.Domain\RSPeer.Domain.csproj" />
+      <ProjectReference Include="..\RSPeer.Infrastructure\RSPeer.Infrastructure.csproj" />
+      <ProjectReference Include="..\RSPeer.Persistence\RSPeer.Persistence.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MongoDB.Driver" Version="2.9.1" />
+    </ItemGroup>
+
+</Project>
